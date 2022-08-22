@@ -10,7 +10,7 @@ interface NotaDao {
     @Insert
     suspend fun setNota(nota:NotaEntity)
     @Query("SELECT * FROM nota WHERE id = :id")
-    suspend fun getNota(id:Int)
+    suspend fun getNota(id:Int): NotaEntity
     @Query("SELECT * FROM nota")
     suspend fun listNota():List<NotaEntity>
     @Query("DELETE FROM nota WHERE id = :id")

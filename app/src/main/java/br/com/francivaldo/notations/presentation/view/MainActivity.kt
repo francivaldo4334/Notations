@@ -22,20 +22,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import br.com.francivaldo.notations.presentation.Constants
 import br.com.francivaldo.notations.presentation.model.NotaUi
 import br.com.francivaldo.notations.presentation.view.ui.theme.NotationsTheme
 import br.com.francivaldo.notations.presentation.view.widgets.DialogAddNota
 import br.com.francivaldo.notations.presentation.view.widgets.LayoutNota
+import br.com.francivaldo.notations.presentation.viewmodel.MainViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var notations = listOf<NotaUi>(
-            NotaUi(0,"title","description"),
-            NotaUi(0,"title","description"),
-            NotaUi(0,"title","description"),
-            NotaUi(0,"title","description"),
-        )
+        //inicializacao de ViewModel
+        Constants.setViewModel(MainViewModel(this.application))
+        Constants.getViewModel().listNota()
         setContent {
             NotationsTheme {
                 // A surface container using the 'background' color from the theme
@@ -58,7 +57,7 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier
                                 .fillMaxSize()
                         ){
-                            items(notations){
+                            items(Constants.getViewModel().listNotaRespo){
                                 LayoutNota(item = it)
                             }
                         }

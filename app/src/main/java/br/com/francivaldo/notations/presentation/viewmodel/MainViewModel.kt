@@ -27,6 +27,7 @@ class MainViewModel(application: Application) : ViewModel(){
     fun setNota(nota:NotaUi){
         viewModelScope.launch {
             ctrlRepository.setNota(nota.toCtrl())
+            listNotaRespo = ctrlRepository.listNota().map { it.toUi() }
         }
     }
     fun listNota(){
@@ -37,6 +38,7 @@ class MainViewModel(application: Application) : ViewModel(){
     fun deleteNota(id:Int){
         viewModelScope.launch {
             ctrlRepository.deleteNota(id)
+            listNotaRespo = ctrlRepository.listNota().map { it.toUi() }
         }
     }
 }

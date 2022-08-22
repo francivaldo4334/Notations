@@ -3,11 +3,12 @@ package br.com.francivaldo.notations.presentation.view.widgets
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -18,6 +19,10 @@ import br.com.francivaldo.notations.presentation.model.NotaUi
 
 @Composable
 fun LayoutNota(item:NotaUi){
+
+    var openDialog by remember{
+        mutableStateOf(false)
+    }
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -26,6 +31,9 @@ fun LayoutNota(item:NotaUi){
                 shape = RoundedCornerShape(20.dp)
             )
             .background(MaterialTheme.colors.surface)
+            .clickable {
+                openDialog = true
+            }
     ) {
         Column(
             modifier = Modifier
@@ -36,4 +44,5 @@ fun LayoutNota(item:NotaUi){
             Text(text = "${item.description}", fontSize = 14.sp)
         }
     }
+    DialogDeleteNota(open = openDialog, onDismissRequest = {openDialog = false}, id = item.id)
 }

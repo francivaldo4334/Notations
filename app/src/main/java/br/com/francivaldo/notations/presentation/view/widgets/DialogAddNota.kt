@@ -9,6 +9,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import br.com.francivaldo.notations.presentation.Constants
+import br.com.francivaldo.notations.presentation.model.NotaUi
 
 //card de adicao de nova nota
 @Composable
@@ -47,10 +49,21 @@ fun DialogAddNota(open:Boolean,onDismissRequest:()-> Unit){
                     //bottao de confirmar
                     Button(
                         onClick = {
-                              //adicionar en banco de dados
-
-                              //fechar
-                              onDismissRequest.invoke()
+                            if(
+                                valueTitle.isBlank() || valueTitle.isEmpty() ||
+                                valueDescription.isBlank() || valueDescription.isEmpty()
+                            )
+                                return@Button
+                            //adicionar en banco de dados
+                            Constants.getViewModel().setNota(
+                                NotaUi(
+                                    title = valueTitle,
+                                    description = valueDescription
+                                )
+                            )
+                            Constants.getViewModel().listNota()
+                            //fechar
+                            onDismissRequest.invoke()
                         },
                         modifier = Modifier
                             .fillMaxWidth()
